@@ -46,7 +46,7 @@ export default function Box(props: PropsBox): ReactNode {
       )}
       style={style}
     >
-      {!loading ? children : <Loading />}
+      {loading ? <Loading /> : children}
     </div>
   );
 }

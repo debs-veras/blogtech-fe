@@ -80,7 +80,7 @@ export default function PostListing() {
     page: number = 0,
   ) => {
     if (!user?.id) return;
-
+    setLoading(true);
     let filters: SearchPostParams = { page: page + 1, limit: pageSize };
 
     await handleSubmit(async (dataForm) => {
@@ -108,28 +108,28 @@ export default function PostListing() {
         tipo: response.type,
       });
     setPosts(response?.data?.data || []);
+    setLoading(false);
   };
 
-  const debouncedLoadPosts = useDebounce(loadPosts, 500);
+  const debouncedLoadPosts = useDebounce(loadPosts, 1000);
 
   const handleDelete = async () => {
     if (!deleteModal.post) return;
-    setLoading(true);
+
     toast({ mensagem: "Removendo dados.." });
     const response = await deletePost(deleteModal.post.id);
-    debouncedLoadPosts();
+    loadPosts();
     toast({
       mensagem: response.message,
       tipo: response.type,
     });
     setDeleteModal({ show: false });
-    setLoading(false);
   };
 
   const handlePublish = async () => {
     const post = publishModal.post;
     if (!post || publishingId === post.id) return;
-    setLoading(true);
+
     setPublishingId(post.id);
     toast({ mensagem: "Realizando ação..." });
     const response = await publishPost(post.id);
@@ -137,10 +137,9 @@ export default function PostListing() {
       mensagem: response.message,
       tipo: response.type,
     });
-    debouncedLoadPosts();
+    loadPosts();
     setPublishingId(null);
     setPublishModal({ show: false });
-    setLoading(false);
   };
 
   const handleClearFilters = () => {
@@ -159,19 +158,15 @@ export default function PostListing() {
   };
 
   useEffect(() => {
-    setLoading(true);
     const loadCategories = async () => {
       setLoadingCategories(true);
       const response = await getCategories();
-      if (response.success && response.data) {
-        setCategories(response.data);
-      }
+      if (response.success && response.data) setCategories(response.data);
       setLoadingCategories(false);
     };
 
     loadCategories();
-    debouncedLoadPosts();
-    setLoading(false);
+    loadPosts();
   }, []);
 
   useEffect(() => {
@@ -254,7 +249,7 @@ export default function PostListing() {
         </form>
       </Box>
       <Box loading={loading}>
-        {posts.length === 0 && !loading ? (
+        {!posts.length && !loading ? (
           <EmptyState
             title="Nenhum post encontrado"
             description="Você ainda não criou nenhum post. Comece agora!"

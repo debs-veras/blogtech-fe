@@ -107,28 +107,28 @@ export default function PostAllListing() {
         tipo: response.type,
       });
     setPosts(response?.data?.data || []);
+    setLoading(false);
   };
 
   const debouncedLoadPosts = useDebounce(loadPosts, 500);
 
   const handleDelete = async () => {
     if (!deleteModal.post) return;
-    setLoading(true);
+
     toast({ mensagem: "Removendo dados.." });
     const response = await deletePost(deleteModal.post.id);
-    debouncedLoadPosts();
+    loadPosts();
     toast({
       mensagem: response.message,
       tipo: response.type,
     });
     setDeleteModal({ show: false });
-    setLoading(false);
   };
 
   const handlePublish = async () => {
     const post = publishModal.post;
     if (!post || publishingId === post.id) return;
-    setLoading(true);
+
     setPublishingId(post.id);
     toast({ mensagem: "Realizando ação..." });
     const response = await publishPost(post.id);
@@ -136,10 +136,9 @@ export default function PostAllListing() {
       mensagem: response.message,
       tipo: response.type,
     });
-    debouncedLoadPosts();
+    loadPosts();
     setPublishingId(null);
     setPublishModal({ show: false });
-    setLoading(false);
   };
 
   const handleClearFilters = () => {
@@ -158,7 +157,6 @@ export default function PostAllListing() {
   };
 
   useEffect(() => {
-    setLoading(true);
     const loadCategories = async () => {
       setLoadingCategories(true);
       const response = await getCategories();
@@ -167,8 +165,7 @@ export default function PostAllListing() {
     };
 
     loadCategories();
-    debouncedLoadPosts();
-    setLoading(false);
+    loadPosts();
   }, []);
 
   useEffect(() => {
