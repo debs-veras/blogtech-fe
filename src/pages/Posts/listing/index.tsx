@@ -46,7 +46,6 @@ export default function PostListing() {
   const [totalRegister, setTotalRegister] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
   const registerForPage = 10;
-  const recordsPerPage = 2;
   const [publishingId, setPublishingId] = useState<string | null>(null);
 
   const [deleteModal, setDeleteModal] = useState<{
@@ -66,9 +65,7 @@ export default function PostListing() {
     { value: "false", label: "Rascunho" },
   ];
 
-  const parsePublishedFilter = (
-    published?: PostFiltersForm["published"],
-  ): boolean | undefined => {
+  const parsePublishedFilter = ( published?: PostFiltersForm["published"] ): boolean | undefined => {
     if (published === "" || published === undefined) return undefined;
     if (published === true || published === "true") return true;
     if (published === false || published === "false") return false;
@@ -357,7 +354,7 @@ export default function PostListing() {
                 page={currentPage}
                 totalRecords={totalRegister}
                 totalPages={totalPage}
-                recordsPerPage={recordsPerPage}
+                recordsPerPage={registerForPage}
                 onClickPrevPage={() => {
                   const newPage = currentPage - 1;
                   setCurrentPage(newPage);

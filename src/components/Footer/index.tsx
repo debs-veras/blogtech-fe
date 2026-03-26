@@ -11,7 +11,7 @@ export function Footer() {
             </div>
             <div>
               <div className="font-bold text-gray-900 dark:text-white">
-                TechNews Portal
+                BlogTech Portal
               </div>
               <div className="text-xs text-gray-500 dark:text-gray-400">
                 Inovação & Tecnologia
@@ -19,7 +19,7 @@ export function Footer() {
             </div>
           </div>
           <div className="text-center text-gray-600 dark:text-gray-400 text-sm">
-            © {new Date().getFullYear()} TechNews Portal. Todos os direitos
+            © {new Date().getFullYear()} BlogTech Portal. Todos os direitos
             reservados.
           </div>
         </div>

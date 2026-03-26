@@ -94,7 +94,7 @@ export default function Login() {
               <HiChip className="w-10 h-10 text-white relative z-10" />
             </div>
             <h1 className="text-4xl font-bold bg-linear-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
-              TechNews Portal
+              BlogTech Portal
             </h1>
             <p className="text-gray-600 dark:text-gray-400 text-sm tracking-wider">
               Acesse o painel de notícias de tecnologia
@@ -187,7 +187,7 @@ export default function Login() {
           {/* Rodapé */}
           <div className="mt-8 pt-6 border-t border-gray-300/50 dark:border-gray-700/50">
             <p className="mt-4 text-center text-xs text-gray-500 dark:text-gray-500">
-              © {new Date().getFullYear()} TechNews Portal. Todos os direitos
+              © {new Date().getFullYear()} BlogTech Portal. Todos os direitos
               reservados.
             </p>
           </div>

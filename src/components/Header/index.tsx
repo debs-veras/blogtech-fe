@@ -25,7 +25,7 @@ export function Header() {
             </div>
             <div className="hidden sm:block">
               <span className="text-xl font-bold bg-linear-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                TechNews
+                BlogTech
               </span>
               <span className="text-xl font-light text-gray-700 dark:text-gray-300 ml-1">
                 Portal

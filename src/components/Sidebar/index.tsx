@@ -16,6 +16,8 @@ import {
 } from "react-icons/hi";
 import { useStorage } from "../../hooks/storage";
 import { useTheme } from "../../contexts/ThemeContext";
+import useToastLoading from "../../hooks/useToastLoading";
+import { logout } from "../../services/auth.service";
 
 interface MenuItem {
   icon: React.ReactNode;
@@ -37,6 +39,7 @@ export default function Sidebar() {
     const saved = localStorage.getItem("menuOpen");
     return saved === null ? true : saved === "true";
   });
+  const toast = useToastLoading();
   const [openSubmenus, setOpenSubmenus] = useState<Record<string, boolean>>({});
   const storage = useStorage();
   const user = storage.getUser();
@@ -126,11 +129,19 @@ export default function Sidebar() {
       ),
     }));
 
-  const handleLogout = () => {
-    storage.removeSession();
-    navigate("/login");
+  const handleLogout = async () => {
+    toast({ mensagem: "Saindo do sistema..." });
+    const response = await logout();
+    toast({ tipo: "dismiss" });
+    if (response.success) {
+      storage.removeSession();
+      navigate("/login");
+    }
+    toast({
+      mensagem: response.message,
+      tipo: response.type,
+    });
   };
-
   const toggleSubmenu = (label: string) => {
     setOpenSubmenus((prev) => ({
       ...prev,
