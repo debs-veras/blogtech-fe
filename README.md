@@ -60,7 +60,7 @@ Siga os passos abaixo para configurar o ambiente de desenvolvimento localmente.
    *(Ou `npm install` / `yarn install`)*
 
 3. **Configure as variáveis de ambiente:**
-   Crie um arquivo `.env` na raiz do projeto e configure a URL da API(VITE_URL_API=https://blogtech-be.onrender.com). Caso queira acessar o código fonte do backend, ele está disponível em: [blogtech-be](https://github.com/debs-veras/blogtech-be).
+   No arquivo `.env` na raiz do projeto da para configurar a URL da API(VITE_URL_API=https://blogtech-be.onrender.com). Caso queira acessar o código fonte do backend, ele está disponível em: [blogtech-be](https://github.com/debs-veras/blogtech-be).
    ```env
    # URL da API do BlogTech
    VITE_API_URL=http://localhost:3000
